@@ -12,11 +12,11 @@ import { useOutsideClickClose } from './hooks/useOutsideClickClose';
 import styles from './Select.module.scss';
 
 type SelectProps = {
-	selected: OptionType | null;
-	options: OptionType[];
-	placeholder?: string;
-	onChange?: (selected: OptionType) => void;
-	onClose?: () => void;
+	selected: OptionType | null;                //выбраный элемент
+	options: OptionType[];			                //доступные опции
+	placeholder?: string;				                //отображается текст в начале
+	onChange?: (selected: OptionType) => void;	//при окрытии
+	onClose?: () => void;												//при закрытии
 	title?: string;
 };
 
