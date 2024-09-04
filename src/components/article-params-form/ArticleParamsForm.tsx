@@ -1,11 +1,12 @@
-import { useState, useEffect, SyntheticEvent } from 'react';
+import { useState, SyntheticEvent, useRef } from 'react';
 import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
 import { Text } from 'components/text';
 import { Select } from 'components/select/Select'
 import { RadioGroup } from 'components/radio-group';
 import { defaultArticleState, fontSizeOptions, AppState, backgroundColors, fontFamilyOptions, fontColors, contentWidthArr } from 'src/constants/articleProps';
-import { Separator } from 'components/separator'
+import { Separator } from 'components/separator';
+import { useOutsideClickClose } from '../select/hooks/useOutsideClickClose'
 import clsx from 'clsx';
 
 import styles from './ArticleParamsForm.module.scss';
@@ -18,14 +19,14 @@ type ArticleParamsProps =  {
 }
 
 export const ArticleParamsForm = ({ setAppState, appState, title }: ArticleParamsProps) => {
+	const rootRef = useRef<HTMLDivElement>(null);
 
 	//создание начального состояния открытия.закрытия окна
-	const [isOpen, setIsOpen] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	//Переключения состояния открытия.закрытия
-	const OpenParamsForm = () => {
-		setIsOpen(prevState => !prevState);
-		
+	const openParamsForm = () => {
+		setIsMenuOpen(prevState => !prevState);
 	}
 
 	//кнопка выбора и передача значения в пропс
@@ -42,11 +43,14 @@ export const ArticleParamsForm = ({ setAppState, appState, title }: ArticleParam
 	//создание начального состояния выбора опции
 	const [optionSelected, setOptionSelected] = useState(appState);
 
+	useOutsideClickClose({ isOpen: isMenuOpen, rootRef, onChange: setIsMenuOpen });
+
 	return (
 		<>
-		  {/* Передаем состояние при каждом рендере в кнопку */}	
-			<ArrowButton onClick={OpenParamsForm} isOpen={isOpen}/> 
-			<aside className={clsx(styles.container, isOpen && styles.container_open)}>
+		  {/* Передаем состояние при каждом рендере в кнопку */}
+			<div ref={rootRef}>	
+			<ArrowButton onClick={openParamsForm} isOpen={isMenuOpen}/> 
+			<aside className={clsx(styles.container, isMenuOpen && styles.container_open)}>
 				<form className={styles.form} onSubmit={submitClick} onReset={resetClick}>
 						
 						<Text as='h1' size={31} weight={800} uppercase>{title}</Text>
@@ -83,6 +87,7 @@ export const ArticleParamsForm = ({ setAppState, appState, title }: ArticleParam
 					</div>
 				</form>
 			</aside>
+			</div>
 		</>
 	);
 };
