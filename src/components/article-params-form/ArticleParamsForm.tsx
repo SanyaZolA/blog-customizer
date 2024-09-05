@@ -7,8 +7,8 @@ import { RadioGroup } from 'components/radio-group';
 import { defaultArticleState, fontSizeOptions, AppState, backgroundColors, fontFamilyOptions, fontColors, contentWidthArr } from 'src/constants/articleProps';
 import { Separator } from 'components/separator';
 import { useOutsideClickClose } from '../select/hooks/useOutsideClickClose'
-import clsx from 'clsx';
 
+import clsx from 'clsx';
 import styles from './ArticleParamsForm.module.scss';
 import storybookStyles from '../story-decorator/StoryDecorator.module.scss';
 
@@ -43,6 +43,7 @@ export const ArticleParamsForm = ({ setAppState, appState, title }: ArticleParam
 	//создание начального состояния выбора опции
 	const [optionSelected, setOptionSelected] = useState(appState);
 
+	//кастомный хук для закрытия снаружи
 	useOutsideClickClose({ isOpen: isMenuOpen, rootRef, onChange: setIsMenuOpen });
 
 	return (
