@@ -11,9 +11,9 @@
 }
 
 .button:active {
-	background: var(--gold, #ffc802);
+	background: var(--gold, green);
 }
 
 .button:hover {
-	background: var(--gold, #ffc802);
+	background: var(--gold, rgba(255, 237, 171, 1));
 }
