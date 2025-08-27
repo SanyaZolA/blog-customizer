@@ -22,12 +22,12 @@ export const fontFamilyOptions: OptionType[] & {
 		title: 'Open Sans',
 		value: 'Open Sans',
 		className: fontFamilyClasses[0],
-  },
+	},
 	{
 		title: 'Ubuntu',
 		value: 'Ubuntu',
 		className: fontFamilyClasses[1],
-  },
+	},
 	{
 		title: 'Cormorant Garamond',
 		value: 'Cormorant Garamond',
@@ -37,7 +37,7 @@ export const fontFamilyOptions: OptionType[] & {
 		title: 'Days One',
 		value: 'Days One',
 		className: fontFamilyClasses[3],
-  },
+	},
 	{
 		title: 'Merriweather',
 		value: 'Merriweather',

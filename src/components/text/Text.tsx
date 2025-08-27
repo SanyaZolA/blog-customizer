@@ -28,27 +28,27 @@ type TextProps = {
 };
 
 export function Text({
-  children,
-  as: Tag = 'div',
-  size = 18,
-  dynamic = false,
-  weight = 400,
-  fontStyle = 'normal',
-  uppercase = false,
-  align = 'left',
-  family = 'open-sans',
-  dynamicLite = false,
+	children,
+	as: Tag = 'div',
+	size = 18,
+	dynamic = false,
+	weight = 400,
+	fontStyle = 'normal',
+	uppercase = false,
+	align = 'left',
+	family = 'open-sans',
+	dynamicLite = false,
 }: TextProps) {
-  const className = clsx(
-    styles.text,
-    styles[`size${size}`],
-    { [styles.dynamic]: dynamic },
-    styles[`weight${weight}`],
-    styles[`${fontStyle}`],
-    { [styles.uppercase]: uppercase },
-    styles[`${align}`],
-    styles[`${family}`],
-    { [styles.dynamicLite]: dynamicLite },
-  );
-  return <Tag className={className}>{children}</Tag>;
+	const className = clsx(
+		styles.text,
+		styles[`size${size}`],
+		{ [styles.dynamic]: dynamic },
+		styles[`weight${weight}`],
+		styles[`${fontStyle}`],
+		{ [styles.uppercase]: uppercase },
+		styles[`${align}`],
+		styles[`${family}`],
+		{ [styles.dynamicLite]: dynamicLite }
+	);
+	return <Tag className={className}>{children}</Tag>;
 }
