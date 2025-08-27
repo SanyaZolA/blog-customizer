@@ -11,25 +11,25 @@ export default meta;
 type Story = StoryObj<typeof RadioGroup>;
 
 function RadioGroupWithState() {
-  const options = [
-    { title: '1 опция', value: '1 опция', className: '' },
-    { title: '2 опция', value: '2 опция', className: '' },
-    { title: '3 опция', value: '3 опция', className: '' },
-    { title: '4 опция', value: '4 опция', className: '' },
-  ];
-  const [selected, setSelected] = useState(options[0]);
+	const options = [
+		{ title: '1 опция', value: '1 опция', className: '' },
+		{ title: '2 опция', value: '2 опция', className: '' },
+		{ title: '3 опция', value: '3 опция', className: '' },
+		{ title: '4 опция', value: '4 опция', className: '' },
+	];
+	const [selected, setSelected] = useState(options[0]);
 
-  return (
-  <>
-  <RadioGroup
-  selected={selected}
-  name="radio"
+	return (
+		<>
+			<RadioGroup
+				selected={selected}
+				name='radio'
 				onChange={setSelected}
-  options={options}
-  title="Название радиогруппы"
+				options={options}
+				title='Название радиогруппы'
 			/>
 		</>
-  );
+	);
 }
 
 export const RadioGroupStory: Story = {
