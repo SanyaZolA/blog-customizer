@@ -14,7 +14,7 @@ type OptionProps = {
 	option: OptionType;
 };
 
-export const Option = (props: OptionProps) => {
+export function Option(props: OptionProps) {
 	const { value, title, selected, groupName, onChange, option } = props;
 
 	const optionRef = useRef<HTMLDivElement>(null);
@@ -50,4 +50,4 @@ export const Option = (props: OptionProps) => {
 			</label>
 		</div>
 	);
-};
+}

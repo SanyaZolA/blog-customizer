@@ -12,93 +12,96 @@ import { useOutsideClickClose } from './hooks/useOutsideClickClose';
 import styles from './Select.module.scss';
 
 type SelectProps = {
-	selected: OptionType | null;                //выбраный элемент
-	options: OptionType[];			                //доступные опции
-	placeholder?: string;				                //отображается текст в начале
-	onChange?: (selected: OptionType) => void;	//при окрытии
-	onClose?: () => void;												//при закрытии
+	selected: OptionType | null; // выбраный элемент
+	options: OptionType[]; // доступные опции
+	placeholder?: string; // отображается текст в начале
+	onChange?: (selected: OptionType) => void; // при окрытии
+	onClose?: () => void; // при закрытии
 	title?: string;
+	
 };
 
-export const Select = (props: SelectProps) => {
-	const { options, placeholder, selected, onChange, onClose, title } = props;
-	const [isOpen, setIsOpen] = useState<boolean>(false);
-	const rootRef = useRef<HTMLDivElement>(null);
-	const placeholderRef = useRef<HTMLDivElement>(null);
+export function Select(props: SelectProps) {
+  const {options, placeholder, selected, onChange, onClose, title
+} = props;
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const placeholderRef = useRef<HTMLDivElement>(null);
 
-	useOutsideClickClose({
-		isOpen,
-		rootRef,
-		onClose,
-		onChange: setIsOpen,
-	});
+  useOutsideClickClose({
+    isOpen,
+    rootRef,
+    onClose,
+    onChange: setIsOpen,
+  });
 
-	useEnterSubmit({
-		placeholderRef,
-		onChange: setIsOpen,
-	});
+  useEnterSubmit({
+    placeholderRef,
+    onChange: setIsOpen,
+  });
 
-	const handleOptionClick = (option: OptionType) => {
-		setIsOpen(false);
-		onChange?.(option);
-	};
-	const handlePlaceHolderClick: MouseEventHandler<HTMLDivElement> = () => {
-		setIsOpen((isOpen) => !isOpen);
-	};
+  const handleOptionClick = (option: OptionType) => {
+    setIsOpen(false);
+    onChange?.(option);
+  };
+  const handlePlaceHolderClick: MouseEventHandler<HTMLDivElement> = () => {
+    setIsOpen((isOpen) => !isOpen);
+  };
 
-	return (
-		<div className={styles.container}>
-			{title && (
-				<>
-					<Text size={12} weight={800} uppercase>
-						{title}
-					</Text>
-				</>
+  return (
+  <div className={styles.container}>
+  {title && (
+				<Text size={12} weight={800} uppercase>
+					{title}
+  </Text>
 			)}
-			<div
-				className={styles.selectWrapper}
-				ref={rootRef}
-				data-is-active={isOpen}
-				data-testid='selectWrapper'>
+  <div
+  className={styles.selectWrapper}
+  ref={rootRef}
+  data-is-active={isOpen}
+  data-testid="selectWrapper"
+			>
 				<img
-					src={arrowDown}
-					alt='иконка стрелочки'
+      src={arrowDown}
+      alt="иконка стрелочки"
 					className={clsx(styles.arrow, { [styles.arrow_open]: isOpen })}
 				/>
-				<div
-					className={clsx(
-						styles.placeholder,
-						styles[selected?.optionClassName || '']
+  <div
+  className={clsx(
+					  styles.placeholder,
+					  styles[selected?.optionClassName || ''],
 					)}
-					data-status={status}
-					data-selected={!!selected?.value}
-					onClick={handlePlaceHolderClick}
-					role='button'
+  data-status={status}
+  data-selected={!!selected?.value}
+  onClick={handlePlaceHolderClick}
+  role="button"
 					tabIndex={0}
-					ref={placeholderRef}>
+  ref={placeholderRef}
+				>
 					<Text
-						family={
+      family={
 							isFontFamilyClass(selected?.className)
-								? selected?.className
-								: undefined
-						}>
-						{selected?.title || placeholder}
-					</Text>
+							  ? selected?.className
+							  : undefined
+						}
+    >
+      {selected?.title || placeholder}
+    </Text>
 				</div>
-				{isOpen && (
-					<ul className={styles.select} data-testid='selectDropdown'>
-						{options
-							.filter((option) => selected?.value !== option.value)
-							.map((option) => (
-								<Option
-									key={option.value}
-									option={option}
-									onClick={() => handleOptionClick(option)}
+  {isOpen && (
+					<ul className={styles.select} data-testid="selectDropdown">
+    {options
+						  .filter((option) => selected?.value !== option.value)
+						  .map((option) => (
+  <Option
+  key={option.value}
+  option={option}
+  onClick={() => handleOptionClick(option)}
 								/>
-							))}
-					</ul>
+						  ))}
+  </ul>
 				)}
 			</div>
 		</div>
-	);
-};
+  );
+}

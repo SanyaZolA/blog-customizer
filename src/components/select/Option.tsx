@@ -13,7 +13,7 @@ type OptionProps = {
 	onClick: (value: OptionType['value']) => void;
 };
 
-export const Option = (props: OptionProps) => {
+export function Option(props: OptionProps) {
 	const {
 		option: { value, title, optionClassName, className },
 		onClick,
@@ -21,8 +21,7 @@ export const Option = (props: OptionProps) => {
 	const optionRef = useRef<HTMLLIElement>(null);
 
 	const handleClick =
-		(clickedValue: OptionType['value']): MouseEventHandler<HTMLLIElement> =>
-		() => {
+		(clickedValue: OptionType['value']): MouseEventHandler<HTMLLIElement> => () => {
 			onClick(clickedValue);
 		};
 
@@ -39,10 +38,10 @@ export const Option = (props: OptionProps) => {
 			onClick={handleClick(value)}
 			tabIndex={0}
 			data-testid={`select-option-${value}`}
-			ref={optionRef}>
+    ref={optionRef}>
 			<Text family={isFontFamilyClass(className) ? className : undefined}>
 				{title}
-			</Text>
-		</li>
+  </Text>
+  </li>
 	);
-};
+}

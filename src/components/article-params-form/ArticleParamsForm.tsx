@@ -2,93 +2,126 @@ import { useState, SyntheticEvent, useRef } from 'react';
 import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
 import { Text } from 'components/text';
-import { Select } from 'components/select/Select'
+import { Select } from 'components/select/Select';
 import { RadioGroup } from 'components/radio-group';
-import { defaultArticleState, fontSizeOptions, AppState, backgroundColors, fontFamilyOptions, fontColors, contentWidthArr } from 'src/constants/articleProps';
+import {
+  defaultArticleState,
+  fontSizeOptions,
+  AppState,
+  backgroundColors,
+  fontFamilyOptions,
+  fontColors,
+  contentWidthArr,
+} from 'src/constants/articleProps';
 import { Separator } from 'components/separator';
-import { useOutsideClickClose } from '../select/hooks/useOutsideClickClose'
-
 import clsx from 'clsx';
+import { useOutsideClickClose } from '../select/hooks/useOutsideClickClose';
+
 import styles from './ArticleParamsForm.module.scss';
 import storybookStyles from '../story-decorator/StoryDecorator.module.scss';
 
-type ArticleParamsProps =  {
-	title: string,
-	setAppState: any
-	appState: AppState
-}
+type ArticleParamsProps = {
+	title: string;
+	setAppState: any;
+	appState: AppState;
+};
 
-export const ArticleParamsForm = ({ setAppState, appState, title }: ArticleParamsProps) => {
-	const rootRef = useRef<HTMLDivElement>(null);
+export function ArticleParamsForm({
+	setAppState,
+	appState,
+	title,
+}: ArticleParamsProps) {
+  
+  const rootRef = useRef<HTMLDivElement>(null);
 
-	//создание начального состояния открытия.закрытия окна
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // создание начального состояния открытия.закрытия окна
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-	//Переключения состояния открытия.закрытия
-	const openParamsForm = () => {
-		setIsMenuOpen(prevState => !prevState);
-	}
-
-	//кнопка выбора и передача значения в пропс
-	const submitClick = (e: SyntheticEvent) => {
-		setAppState(optionSelected);
-		e.preventDefault();
+  // Переключения состояния открытия.закрытия
+  const openParamsForm = () => {
+    setIsMenuOpen((prevState) => !prevState);
 	};
 
-	//кнопка сброса
-	const resetClick = () => {
-		setAppState(defaultArticleState);
-	}
+  // кнопка выбора и передача значения в пропс
+  const submitClick = (e: SyntheticEvent) => {
+    setAppState(optionSelected);
+    e.preventDefault();
+  };
 
-	//создание начального состояния выбора опции
-	const [optionSelected, setOptionSelected] = useState(appState);
+  // кнопка сброса
+  const resetClick = () => {
+    setAppState(defaultArticleState);
+  };
 
-	//кастомный хук для закрытия снаружи
-	useOutsideClickClose({ isOpen: isMenuOpen, rootRef, onChange: setIsMenuOpen });
+  // создание начального состояния выбора опции
+  const [optionSelected, setOptionSelected] = useState(appState);
 
-	return (
-		<>
-		  {/* Передаем состояние при каждом рендере в кнопку */}
-			<div ref={rootRef}>	
-			<ArrowButton onClick={openParamsForm} isOpen={isMenuOpen}/> 
-			<aside className={clsx(styles.container, isMenuOpen && styles.container_open)}>
-				<form className={styles.form} onSubmit={submitClick} onReset={resetClick}>
-						
-						<Text as='h1' size={31} weight={800} uppercase>{title}</Text>
-						<div className={storybookStyles.storybookContainer}></div>
-						<Select title={'Шрифт'}
-										options={fontFamilyOptions}
-										selected={optionSelected.fontFamilyOption}
-										onChange={(fontFamilyOption) => setOptionSelected({ ...optionSelected, fontFamilyOption })} />
-						<div className={storybookStyles.storybookContainer}></div>
-						<RadioGroup title={'Размер шрифта'}
-										options={fontSizeOptions} name={'fontSize'}
-										selected={optionSelected.fontSizeOption}
-										onChange={(fontSizeOption) => setOptionSelected({ ...optionSelected, fontSizeOption })} />
-						<div className={storybookStyles.storybookContainer}></div>
-						<Select title={'Цвет шрифта'}
-										options={fontColors}
-										selected={optionSelected.fontColor}
-										onChange={(fontColor) => setOptionSelected({ ...optionSelected, fontColor })} />
-						<div className={storybookStyles.storybookContainer}></div>
-						<Separator/>
-						<div className={storybookStyles.storybookContainer}></div>
-						<Select title={'Цвет фона'}
-										options={backgroundColors}
-										selected={optionSelected.backgroundColor}
-										onChange={(backgroundColor) => setOptionSelected({ ...optionSelected, backgroundColor })} />
-						<div className={storybookStyles.storybookContainer}></div>
-						<Select title={'Ширина контента'}
-										options={contentWidthArr}
-										selected={optionSelected.contentWidth}
-										onChange={(contentWidth) => setOptionSelected({ ...optionSelected, contentWidth })} />
-					<div className={styles.bottomContainer}>
-						<Button title='Сбросить' type='reset' />
-						<Button title='Применить' type='submit' />
-					</div>
-				</form>
-			</aside>
-			</div>
+  // кастомный хук для закрытия снаружи
+  useOutsideClickClose({
+		isOpen: isMenuOpen,
+		rootRef,
+		onChange: setIsMenuOpen,
+	});
+
+  return (
+  <>
+  {/* Передаем состояние при каждом рендере в кнопку */}
+			<div ref={rootRef}>
+      <ArrowButton onClick={openParamsForm} isOpen={isMenuOpen} />
+      <aside className={clsx(styles.container, isMenuOpen && styles.container_open)}>
+    <form
+  className={styles.form}
+  onSubmit={submitClick}
+  onReset={resetClick}
+					>
+  <Text as="h1" size={31} weight={800} uppercase>
+							{title}
+    </Text>
+  <div className={storybookStyles.storybookContainer} />
+  <Select
+  title="Шрифт"
+							options={fontFamilyOptions}
+  selected={optionSelected.fontFamilyOption}
+  onChange={(fontFamilyOption) => setOptionSelected({ ...optionSelected, fontFamilyOption })}
+						/>
+  <div className={storybookStyles.storybookContainer} />
+  <RadioGroup
+  title="Размер шрифта"
+							options={fontSizeOptions}
+  name="fontSize"
+							selected={optionSelected.fontSizeOption}
+  onChange={(fontSizeOption) => setOptionSelected({ ...optionSelected, fontSizeOption })}
+						/>
+  <div className={storybookStyles.storybookContainer} />
+  <Select
+  title="Цвет шрифта"
+							options={fontColors}
+  selected={optionSelected.fontColor}
+  onChange={(fontColor) => setOptionSelected({ ...optionSelected, fontColor })}
+						/>
+  <div className={storybookStyles.storybookContainer} />
+  <Separator />
+						<div className={storybookStyles.storybookContainer} />
+  <Select
+  title="Цвет фона"
+							options={backgroundColors}
+							selected={optionSelected.backgroundColor}
+  onChange={(backgroundColor) => setOptionSelected({ ...optionSelected, backgroundColor })}
+						/>
+  <div className={storybookStyles.storybookContainer} />
+  <Select
+  title="Ширина контента"
+							options={contentWidthArr}
+  selected={optionSelected.contentWidth}
+  onChange={(contentWidth) => setOptionSelected({ ...optionSelected, contentWidth })}
+						/>
+  <div className={styles.bottomContainer}>
+  <Button title="Сбросить" type="reset" />
+  <Button title="Применить" type="submit" />
+						</div>
+					</form>
+				</aside>
+    </div>
 		</>
-	);
-};
+  );
+}

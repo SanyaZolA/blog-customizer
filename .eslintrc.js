@@ -25,7 +25,14 @@ module.exports = {
 		'plugin:import/warnings',
 		'plugin:import/typescript',
 		'plugin:eslint-comments/recommended',
+		'airbnb',
+ 		'airbnb/hooks'
 	],
+	parserOptions: {
+		ecmaVersion: 'latest',
+		sourceType: 'module',
+		project: './tsconfig.json',
+	},
 	rules: {
 		semi: [2, 'always'],
 		quotes: [2, 'single', { avoidEscape: true }],
